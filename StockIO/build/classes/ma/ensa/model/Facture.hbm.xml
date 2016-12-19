@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 d??c. 2016 21:13:47 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="ma.ensa.model.Facture" table="facture" catalog="StockIOdb" optimistic-lock="version">
+        <id name="idFacture" type="java.lang.Integer">
+            <column name="id_facture" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="commandeClient" class="ma.ensa.model.CommandeClient" fetch="select">
+            <column name="id_cmd_clt" not-null="true" />
+        </many-to-one>
+        <property name="dateFacture" type="timestamp">
+            <column name="date_facture" length="19" not-null="true" />
+        </property>
+        <property name="dateLimite" type="date">
+            <column name="date_limite" length="10" not-null="true" />
+        </property>
+        <property name="mntTotal" type="float">
+            <column name="mnt_total" precision="12" scale="0" not-null="true" />
+        </property>
+        <set name="commandeFournisseurs" table="commande_fournisseur" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_fournisseur" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.CommandeFournisseur" />
+        </set>
+        <set name="commandeClients" table="commande_client" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_facture" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.CommandeClient" />
+        </set>
+    </class>
+</hibernate-mapping>

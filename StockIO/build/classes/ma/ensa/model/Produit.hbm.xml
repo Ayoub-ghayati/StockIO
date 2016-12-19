@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 d??c. 2016 21:13:47 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="ma.ensa.model.Produit" table="produit" catalog="StockIOdb" optimistic-lock="version">
+        <id name="refProduit" type="java.lang.Integer">
+            <column name="ref_produit" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="categorie" class="ma.ensa.model.Categorie" fetch="select">
+            <column name="id_categorie" not-null="true" />
+        </many-to-one>
+        <many-to-one name="fournisseur" class="ma.ensa.model.Fournisseur" fetch="select">
+            <column name="id_fournisseur" not-null="true" />
+        </many-to-one>
+        <property name="designationProduit" type="string">
+            <column name="designation_produit" not-null="true" />
+        </property>
+        <property name="quantiteProduit" type="int">
+            <column name="quantite_produit" not-null="true" />
+        </property>
+        <property name="prixProduit" type="float">
+            <column name="prix_produit" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="seuilMin" type="int">
+            <column name="seuil_min" not-null="true" />
+        </property>
+        <property name="imageProduit" type="string">
+            <column name="image_produit" not-null="true" />
+        </property>
+        <set name="ligneCmdClts" table="ligne_cmd_clt" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_produit" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.LigneCmdClt" />
+        </set>
+        <set name="ligneCmdFounisseurs" table="ligne_cmd_founisseur" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ref_produit" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.LigneCmdFounisseur" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 d??c. 2016 21:13:47 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="ma.ensa.model.CommandeFournisseur" table="commande_fournisseur" catalog="StockIOdb" optimistic-lock="version">
+        <id name="idCmdFounisseur" type="java.lang.Integer">
+            <column name="id_cmd_founisseur" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="facture" class="ma.ensa.model.Facture" fetch="select">
+            <column name="id_fournisseur" not-null="true" />
+        </many-to-one>
+        <property name="dateCmdFounisseur" type="timestamp">
+            <column name="date_cmd_founisseur" length="19" not-null="true" />
+        </property>
+        <property name="prixTotalFournisseur" type="int">
+            <column name="prix_total_fournisseur" not-null="true" />
+        </property>
+        <set name="ligneCmdFounisseurs" table="ligne_cmd_founisseur" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cmd_fournisseur" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.LigneCmdFounisseur" />
+        </set>
+    </class>
+</hibernate-mapping>

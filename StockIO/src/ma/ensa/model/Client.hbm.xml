@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 d??c. 2016 21:13:47 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="ma.ensa.model.Client" table="client" catalog="StockIOdb" optimistic-lock="version">
+        <id name="idClient" type="java.lang.Integer">
+            <column name="id_client" />
+            <generator class="identity" />
+        </id>
+        <property name="nomClient" type="string">
+            <column name="nom_client" not-null="true" />
+        </property>
+        <property name="addrClient" type="string">
+            <column name="addr_client" length="254" not-null="true" />
+        </property>
+        <property name="telClient" type="string">
+            <column name="tel_client" not-null="true" />
+        </property>
+        <set name="commandeClients" table="commande_client" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_client" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.CommandeClient" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 d??c. 2016 21:13:47 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="ma.ensa.model.BonDeLivraison" table="`bon_de _livraison`" catalog="StockIOdb" optimistic-lock="version">
+        <id name="idLivraison" type="java.lang.Integer">
+            <column name="id_livraison" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="commandeClient" class="ma.ensa.model.CommandeClient" fetch="select">
+            <column name="id_cmd_clt" not-null="true" />
+        </many-to-one>
+        <property name="dateLivraison" type="date">
+            <column name="date_livraison" length="10" not-null="true" />
+        </property>
+        <property name="qtLivraison" type="int">
+            <column name="qt_livraison" not-null="true" />
+        </property>
+        <property name="mntLivraison" type="float">
+            <column name="mnt_livraison" precision="12" scale="0" not-null="true" />
+        </property>
+        <set name="commandeClients" table="commande_client" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_livraison" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.CommandeClient" />
+        </set>
+    </class>
+</hibernate-mapping>

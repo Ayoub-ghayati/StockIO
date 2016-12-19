@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 d??c. 2016 21:13:47 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="ma.ensa.model.LigneCmdFounisseur" table="ligne_cmd_founisseur" catalog="StockIOdb" optimistic-lock="version">
+        <composite-id name="id" class="ma.ensa.model.LigneCmdFounisseurId">
+            <key-property name="refProduit" type="int">
+                <column name="ref_produit" />
+            </key-property>
+            <key-property name="idCmdFournisseur" type="int">
+                <column name="id_cmd_fournisseur" />
+            </key-property>
+            <key-property name="qtPrdCmd" type="int">
+                <column name="qt_prd_cmd" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="commandeFournisseur" class="ma.ensa.model.CommandeFournisseur" update="false" insert="false" fetch="select">
+            <column name="id_cmd_fournisseur" not-null="true" />
+        </many-to-one>
+        <many-to-one name="produit" class="ma.ensa.model.Produit" update="false" insert="false" fetch="select">
+            <column name="ref_produit" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
