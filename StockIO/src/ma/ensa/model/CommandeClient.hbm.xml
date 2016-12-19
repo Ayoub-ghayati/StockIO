@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 d??c. 2016 21:13:47 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="ma.ensa.model.CommandeClient" table="commande_client" catalog="StockIOdb" optimistic-lock="version">
+        <id name="idCmdClt" type="java.lang.Integer">
+            <column name="id_cmd_clt" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="bonDeLivraison" class="ma.ensa.model.BonDeLivraison" fetch="select">
+            <column name="id_livraison" not-null="true" />
+        </many-to-one>
+        <many-to-one name="client" class="ma.ensa.model.Client" fetch="select">
+            <column name="id_client" not-null="true" />
+        </many-to-one>
+        <many-to-one name="facture" class="ma.ensa.model.Facture" fetch="select">
+            <column name="id_facture" not-null="true" />
+        </many-to-one>
+        <property name="dateCmdClt" type="timestamp">
+            <column name="date_cmd_clt" length="19" not-null="true" />
+        </property>
+        <property name="prixTotalClt" type="int">
+            <column name="prix_total_clt" not-null="true" />
+        </property>
+        <set name="factures" table="facture" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cmd_clt" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.Facture" />
+        </set>
+        <set name="ligneCmdClts" table="ligne_cmd_clt" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cmd_clt" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.LigneCmdClt" />
+        </set>
+        <set name="bonDeLivraisons" table="`bon_de _livraison`" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cmd_clt" not-null="true" />
+            </key>
+            <one-to-many class="ma.ensa.model.BonDeLivraison" />
+        </set>
+    </class>
+</hibernate-mapping>

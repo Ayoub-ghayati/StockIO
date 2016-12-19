@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 d??c. 2016 21:13:47 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="ma.ensa.model.LigneCmdClt" table="ligne_cmd_clt" catalog="StockIOdb" optimistic-lock="version">
+        <composite-id name="id" class="ma.ensa.model.LigneCmdCltId">
+            <key-property name="idCmdClt" type="int">
+                <column name="id_cmd_clt" />
+            </key-property>
+            <key-property name="refProduit" type="int">
+                <column name="ref_produit" />
+            </key-property>
+            <key-property name="qtCmdClt" type="int">
+                <column name="qt_cmd_clt" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="commandeClient" class="ma.ensa.model.CommandeClient" update="false" insert="false" fetch="select">
+            <column name="id_cmd_clt" not-null="true" />
+        </many-to-one>
+        <many-to-one name="produit" class="ma.ensa.model.Produit" update="false" insert="false" fetch="select">
+            <column name="ref_produit" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
